@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme{
+  /* define colors */
+    --color-primary: #D87D4A;
+    --color-secondary: #FBAF85;
+    --color-black: #101010;
+    --color-dark: #000000;
+    --color-grayLight: #F1F1F1;
+    --color-grayLighter: #FAFAFA;
+    --color-white: #FFFFFF;
+
+  /* define fonts */
+  --text-H1:56px;
+  --text-H1--line-height:58px;
+  --text-H1--letter-spacing:2px;
+  --text-H2:40px;
+  --text-H2--line-height:44px;
+  --text-H2--letter-spacing:1.5px;
+  --text-H3:32px;
+  --text-H3--line-height:36px;
+  --text-H3--letter-spacing:1.15px;
+  --text-H4:28px;
+  --text-H4--line-height:38px;
+  --text-H4--letter-spacing:2px;
+  --text-H5:24px;
+  --text-H5--line-height:33px;
+  --text-H5--letter-spacing:1.7px;
+  --text-H6:18px;
+  --text-H6--line-height:24px;
+  --text-H6--letter-spacing:1.3px;
+  --text-Overline:14px;
+  --text-Overline--line-height:19px;
+  --text-Overline--letter-spacing:10px;
+  --text-SubTitle:13px;
+  --text-SubTitle--line-height:25px;
+  --text-SubTitle--letter-spacing:1px;
+  --text-Body:15px;
+  --text-Body--line-height:25px;
+
+  --spacing-1:8px;
+  --spacing-2:16px;
+  --spacing-3:24px;
+  --spacing-4:32px;
+  --spacing-5:40px;
+  --spacing-6:48px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+body{
+  max-width: 1440px;
+  width:100%;
+  margin-left: auto;
+  margin-right: auto;
 }
