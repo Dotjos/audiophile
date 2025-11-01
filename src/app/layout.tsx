@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className="">
+      <body className="bg-grayLighter">
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>
