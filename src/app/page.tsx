@@ -3,36 +3,13 @@ import ButtonOne from "./components/ButtonOne";
 import NavComp from "./components/NavComp";
 import ButtonTwo from "./components/ButtonTwo";
 import Footer from "./components/Footer";
+import ManComp from "./components/ManComp";
+import NavSection from "./components/NavSection";
 
 export default function Home() {
   return (
-    <div className="">
-      <section className="relative h-150 md:h-[729px] ">
-        <div className="absolute z-10 md:px-[40px] lg:px-[165px] w-full">
-          <nav className="flex px-3 md:px-0 my-[32px] lg:my-9">
-            <Image
-              alt="hamburger-nav"
-              src="/assets/hamburger.svg"
-              width={16}
-              height={15}
-              className="lg:hidden border border-white"
-            />
-            <Image
-              alt="audiophile-logo"
-              src="/assets/logo.svg"
-              width={143}
-              height={25}
-              className="ml-auto mr-auto md:ml-[42px] lg:ml-0"
-            />
-            <Image
-              alt="cart-nav"
-              src="/assets/carts.svg"
-              width={23}
-              height={20}
-            />
-          </nav>
-          <div className="w-full border-t border-white/[.104]"></div>
-        </div>
+    <div className="bg-grayLighter">
+      <section className="relative h-150 mb-[40px] md:mb-[74px] lg:mb-[120px] md:h-[729px] ">
         <div className="">
           <div className="lg:max-w-[398px] lg:items-start lg:text-left text-white left-1/2 transform -translate-x-1/2 flex items-center flex-col top-49.5 md:top-[216px] lg:top-[225px] lg:left-[165px] lg:translate-x-0  text-center absolute z-10 ">
             <p className="text-[14px] mb-2 md:mb-3 opacity-[0.5] font-normal leading-none tracking-[10px]">
@@ -80,21 +57,8 @@ export default function Home() {
         </div>
       </section>
       <section className="px-3 md:px-[39.61px] lg:px-[165px]">
-        <div className="flex flex-col md:flex-row gap-[68px] md:gap-2.5 lg:gap-[30px] items-center mb-[118px] md:mb-24 lg:mb-[168px] mt-5 md:mt-24 lg:mt-[120px] md:mt-">
-          <NavComp
-            productCategory="HEADPHONES"
-            productImage="/assets/image-removebg-preview(41).png"
-          />
-          <NavComp
-            productCategory="SPEAKERS"
-            productImage="/assets/image-removebg-preview(38).png"
-          />
-          <NavComp
-            productCategory="EARPHONES"
-            productImage="/assets/image-removebg-preview(42).png"
-          />
-        </div>
-        <div className="flex flex-col gap-3 lg:gap-6 mb-[37px]">
+        <NavSection />
+        <div className="flex lg:mt-[168px] mt-[120px] md:mt-24 md:mb-24 lg:mb-[200px]  mb-[120px]  flex-col gap-3 lg:gap-6">
           <div className="h-[600px] md:h-[689px] lg:h-[560px] lg:gap-[138.28px] overflow-hidden flex flex-col lg:flex-row items-center relative text-center text-white bg-primary rounded-lg">
             <Image
               src="/assets/home/desktop/pattern-circles.svg"
@@ -213,46 +177,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="mt-[83px] flex flex-col lg:gap-[125px] lg:flex-row lg:my-[200px] mb-[120px] ">
-          <div className="relative h-[300px] lg:h-[588px] lg:order-2 lg:w-1/2 mb-5 lg:mb-0">
-            <Image
-              alt="man advertising"
-              fill
-              src="/assets/shared/mobile/image-best-gear.jpg"
-              className="rounded-lg md:hidden lg:hidden"
-            />
-            <Image
-              alt="man advertising"
-              fill
-              src="/assets/shared/tablet/image-best-gear.jpg"
-              className="rounded-lg hidden md:block"
-            />
-            <Image
-              alt="man advertising"
-              fill
-              src="/assets/shared/desktop/image-best-gear.jpg"
-              className="rounded-lg hidden lg:block"
-            />
-          </div>
-          <div className="lg:w-1/2 flex flex-col justify-center lg:order-1">
-            <h1 className="uppercase mb-4 lg:text-left text-center text-[28px] md:text-[40px] md:px-[61.5px] lg:px-0 md:tracking-[1.429px] md:leading-11 tracking-[1px] text-black font-bold">
-              Bringing you the <span className="text-primary">best</span> audio
-              gear
-            </h1>
-            <p className="opacity-50 text-center lg:text-left md:px-[73px] lg:px-0 font-normal text-Body">
-              Located at the heart of New York City, Audiophile is the premier
-              store for high end headphones, earphones, speakers, and audio
-              accessories. We have a large showroom and luxury demonstration
-              rooms available for you to browse and experience a wide range of
-              our products. Stop by our store to meet some of the fantastic
-              people who make Audiophile the best place to buy your portable
-              audio equipment.
-            </p>
-          </div>
-        </div>
+        <ManComp />
       </section>
-
-      <Footer />
     </div>
   );
 }
