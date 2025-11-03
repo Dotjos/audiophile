@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,8 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className="bg-grayLighter">
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+      <body className="relative  bg-grayLighter">
+        <ConvexClientProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ConvexClientProvider>
       </body>
     </html>
   );
