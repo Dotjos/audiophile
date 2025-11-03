@@ -12,7 +12,7 @@ const NavComp = ({ link, productCategory, productImage }: NavCompInterface) => {
   return (
     <div className="h-[217px] w-full flex items-end">
       <div className="h-[165px] lg:h-[204px] pb-[22px] gap-[25px] lg:gap-[15px] flex flex-col items-center justify-end text-center relative w-full rounded-lg bg-grayLight">
-        <div className="relative -top-12 w-[79.169px] h-[104px] lg:h-40 lg:w-[122.9474px]">
+        <div className="relative -top-8 w-[79.169px] h-[104px] lg:h-40 lg:w-[122.9474px]">
           <Image alt="product" src={productImage} fill className="absolute" />
         </div>
 
