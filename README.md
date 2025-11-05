@@ -1,192 +1,108 @@
-# 🎧 Audiophile E-Commerce Web App
+```
+# Audiophile E-commerce Web App
 
-A premium, fully responsive **audio e-commerce web application** built with **Next.js**, **TypeScript**, and **Convex backend**.  
-The app provides a smooth shopping experience for audio gear lovers — including headphones, speakers, and earphones — with beautiful UI, real-time cart management, and secure checkout logic.
+Premium audio gear. Built with Next.js & Convex backend.
 
----
+## 🚀 Project Overview
 
-## ✨ Features
+Audiophile is a full-stack e-commerce application showcasing premium audio equipment — headphones, speakers, earphones — with a shopping cart, checkout flow, and backend order handling via Convex.
+The front-end is built using Next.js (App Router), Tailwind CSS, and modern React conventions. The backend uses Convex to store order data, send confirmation emails, and manage user sessions.
 
-✅ **Dynamic Product Catalog** – Fetches product data (images, price, description, and features) from the static data file.  
-✅ **Responsive Design** – Fully optimized for mobile, tablet, and desktop.  
-✅ **Category Filtering** – Browse by category: headphones, speakers, or earphones.  
-✅ **Persistent Cart State** – Users never lose their cart on refresh.  
-✅ **Next.js Routing** – Fast navigation powered by Next.js file-based routing.  
-✅ **Reusable UI Components** – Built with TailwindCSS and modular components for scalability.  
-✅ **Secure Checkout Flow** – Handles summary, total, and order confirmation.
+## 🧰 Tech Stack
 
----
+- Framework**: Next.js (App Directory)
+- Styling**: Tailwind CSS
+- State Management**: Zustand
+- Backend / Data**: ConvexReactClient (Convex as backend)
+- Email & Notifications**: [Nodemailer] (for checkout emails)
+- Utilities**: TypeScript, JSON data import, dynamic routing
 
-## 🛠️ Tech Stack
+## 📁 Key Features
 
-**Frontend:**
+- Responsive site layout (mobile-first)
+- Product catalog by category & slug (URL-based routing)
+- Shopping cart with quantity adjustments
+- Checkout page with billing & payment details
+- Order confirmation email sent via backend
+- Persistent cart data
 
-- [Next.js 14](https://nextjs.org/) (App Router)
-- [TypeScript](https://www.typescriptlang.org/)
-- [React](https://react.dev/)
-- [TailwindCSS](https://tailwindcss.com/) for styling
-
-**Backend:**
-
-- [Convex](https://convex.dev/)
-
-**Other Tools:**
-
-- ESLint + Prettier for code quality
-- Vercel for hosting
-- GitHub for version control
-
----
-
-## 🧩 Project Structure
+## 🧩 Folder Structure (excerpt)
+```
 
 ```
-📦 audiophile-web-app
-┣ 📂 app
-┃ ┣ 📜 layout.tsx # Root layout
-┃ ┣ 📜 page.tsx # Home page
-┃ ┣ 📂 products
-┃ ┃ ┗ 📜 [slug]/page.tsx # Dynamic product detail pages
-┣ 📂 components
-┃ ┣ 📜 Navbar.tsx
-┃ ┣ 📜 Footer.tsx
-┃ ┣ 📜 Button.tsx
-┃ ┣ 📜 ProductCard.tsx
-┃ ┣ 📜 CategoryCard.tsx
-┣ 📂 convex
-┃ ┣ 📜 schema.ts # Convex schema
-┃ ┗ 📜 functions.ts # Convex server functions
-┣ 📂 lib
-┃ ┗ 📜 utils.ts # Helper functions
-┣ 📜 tailwind.config.ts
-┣ 📜 tsconfig.json
-┣ 📜 package.json
-┗ 📜 README.md
+/app
+layout.tsx — Root layout and provider wrappers
+page.tsx — Home page
+/category
+[category]/page.tsx — Category listing
+/product
+[slug]/page.tsx — Product detail page
+/components
+Navbar.tsx — Navigation bar
+BackBtn.tsx — Back button component
+ImageGallery.tsx — Product gallery
+ButtonOne.tsx — Custom button component
+/store
+useStore.ts — Zustand store hooks
+/utils
+email.ts — Email send function via Nodemailer & Convex
 
 ```
 
----
-
-## ⚙️ Getting Started
-
-### 1. Clone the Repository
+## 🛠 Installation & Setup
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/audiophile-web-app.git
-cd audiophile-web-app
-```
-
-### 2. Install Dependencies
-
-```bash
+git clone https://github.com/Dotjos/audiophile.git
+cd audiophile
 npm install
 ```
 
-### 3. Set Up Convex Backend
+Create a `.env.local` file in the project root and add the following environment variables (replace placeholders with your values):
 
-1. Install Convex CLI:
+```env
+NEXT_PUBLIC_CONVEX_URL=https://your-convex-project.convex.cloud
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=youremail@gmail.com
+SMTP_PASS=yourAppPassword
+```
 
-   ```bash
-   npm install -g convex
-   ```
-
-2. Log in and initialize Convex:
-
-   ```bash
-   npx convex dev
-   ```
-
-3. Create your Convex project:
-
-   ```bash
-   npx convex init
-   ```
-
-4. Update your Convex functions in the `convex/` directory (e.g. `getProducts`, `addToCart`, `clearCart`, etc.)
-
-### 4. Run the Development Server
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-The app should now be running at [http://localhost:3000](http://localhost:3000).
+For production build:
 
----
-
-## 🚀 Deployment
-
-This project is optimized for **Vercel** deployment.
-
-1. Push your project to GitHub:
-
-   ```bash
-   git add .
-   git commit -m "initial commit"
-   git push origin main
-   ```
-
-2. Visit [Vercel.com](https://vercel.com), import your repo, and deploy.
-3. Add your Convex environment variables (`CONVEX_DEPLOYMENT` and `CONVEX_URL`) to Vercel.
-4. Convex functions will automatically sync with your deployed app.
-
----
-
-## 📦 Example Convex Schema
-
-```ts
-// convex/schema.ts
-import { defineSchema, defineTable } from "convex/server";
-
-export default defineSchema({
-  products: defineTable({
-    name: "string",
-    category: "string",
-    price: "number",
-    description: "string",
-    image: "string",
-    includes: "json",
-  }),
-  cart: defineTable({
-    productId: "string",
-    quantity: "number",
-  }),
-});
+```bash
+npm run build
+npm run start
 ```
 
----
+## 🔧 Deployment
 
-## 🧠 Future Enhancements
+- Front-end: Can be deployed on Vercel (Next.js recommended)
+- Backend: Convex functions / actions must be deployed via `npx convex deploy`
+- Ensure `NEXT_PUBLIC_CONVEX_URL` is configured in your Vercel project’s environment settings
+- Make sure the backend email environment variables (SMTP credentials) are properly set before deploying checkout functionality
 
-- 🔐 Add authentication (Convex Auth or Clerk)
-- 💳 Integrate Stripe for payments
-- 🧾 Admin dashboard for product management
-- 🌐 Multi-language support
-- 📈 Real-time inventory tracking
+## 📬 Checkout & Email Flow
 
----
+1. User adds products to cart → cartTotal calculated
+2. On checkout, the backend action (`sendCartEmail`) is invoked via Convex
+3. Backend reads environment variables and uses Nodemailer to send order confirmation to user
+4. The UI shows a confirmation page/modal
 
-## 👨‍💻 Author
+## 📝 Contributing
 
-**Oladotun Joseph**
-Frontend Developer — MERN | TypeScript | Next.js | Convex
-📧 [Your Email Here]
-🌐 [GitHub](https://github.com/YOUR_GITHUB_USERNAME)
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+Before submitting, ensure you follow project styling (Tailwind), code conventions, and run local testing.
 
----
+## 🙏 Acknowledgments
 
-## 🪪 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-> “The best interfaces are the ones you don’t notice.” — Jared Spool
-
-```
+- Built based on the Audiophile UI design kit / challenge
+- Thanks to Convex for backend tooling
+- Thanks to Tailwind Labs for styling robustness
 
 ---
-
-Would you like me to tailor this version specifically for your **Audiophile project folder structure** (like your actual components and page names in your repo)?
-If you share your project tree or repo link, I’ll make it a perfect one-to-one fit.
-```
