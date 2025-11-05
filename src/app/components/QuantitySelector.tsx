@@ -1,51 +1,64 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 interface QuantitySelectorProps {
-  initialValue?: number;
+  quantity: number;
+  onQuantityChange: (value: number) => void;
   min?: number;
   max?: number;
-  onChange?: (value: number) => void;
+  size?: "default" | "small"; // New size prop
 }
 
 export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
-  initialValue = 1,
+  quantity,
+  onQuantityChange,
   min = 1,
   max = 99,
-  onChange,
+  size = "default", // Default size
 }) => {
-  const [quantity, setQuantity] = useState(initialValue);
-
   const handleDecrement = () => {
     if (quantity > min) {
-      const newValue = quantity - 1;
-      setQuantity(newValue);
-      onChange?.(newValue);
+      onQuantityChange(quantity - 1);
     }
   };
 
   const handleIncrement = () => {
     if (quantity < max) {
-      const newValue = quantity + 1;
-      setQuantity(newValue);
-      onChange?.(newValue);
+      onQuantityChange(quantity + 1);
     }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value) || min;
     const clampedValue = Math.min(Math.max(value, min), max);
-    setQuantity(clampedValue);
-    onChange?.(clampedValue);
+    onQuantityChange(clampedValue);
   };
 
+  // Size-specific classes
+  const sizeClasses = {
+    default: {
+      container: "h-[48px]",
+      button: "px-[13px] text-sm",
+      input: "w-12 text-sm",
+    },
+    small: {
+      container: "h-[32px] w-[96px]",
+      button: "px-[10px] text-[13px]",
+      input: "w-8 text-[13px]",
+    },
+  };
+
+  const currentSize = sizeClasses[size];
+
   return (
-    <div className="h-[48px] inline-flex items-center bg-grayLight text-black">
+    <div
+      className={`${currentSize.container} inline-flex items-center bg-grayLight text-black`}
+    >
       <button
         onClick={handleDecrement}
         disabled={quantity <= min}
-        className="disabled:opacity-30 px-[13px] disabled:cursor-not-allowed text-sm font-bold"
+        className={`${currentSize.button} disabled:opacity-30 disabled:cursor-not-allowed font-bold hover:text-primary transition uppercase tracking-[1px]`}
         aria-label="Decrease quantity"
       >
         -
@@ -55,14 +68,14 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         type="text"
         value={quantity}
         onChange={handleInputChange}
-        className="w-12 text-center px-[13px] bg-transparent text-sm font-bold focus:outline-none"
+        className={`${currentSize.input} text-center bg-transparent font-bold focus:outline-none uppercase tracking-[1px]`}
         aria-label="Quantity"
       />
 
       <button
         onClick={handleIncrement}
         disabled={quantity >= max}
-        className="disabled:opacity-30 px-[13px] disabled:cursor-not-allowed text-sm font-bold"
+        className={`${currentSize.button} disabled:opacity-30 disabled:cursor-not-allowed font-bold hover:text-primary transition uppercase tracking-[1px]`}
         aria-label="Increase quantity"
       >
         +

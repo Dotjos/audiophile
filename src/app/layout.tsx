@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import LayoutClient from "./LayoutClient";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className="relative  bg-grayLighter">
+      <body className="relative bg-grayLighter">
         <ConvexClientProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <LayoutClient>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </LayoutClient>
         </ConvexClientProvider>
       </body>
     </html>

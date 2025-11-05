@@ -22,7 +22,7 @@ export default function Home() {
               Experience natural, lifelike audio and exceptional build quality
               made for the passionate music enthusiast.
             </p>
-            <ButtonOne />
+            <ButtonOne route="/productDetail/xx99-mark-one-headphones" />
           </div>
           <picture>
             {/* Mobile image (default, smallest first for progressive enhancement) */}
@@ -65,7 +65,7 @@ export default function Home() {
               width={558}
               height={558}
               alt="Pattern-circles"
-              className="absolute z-0 transform scale-173 md:scale-171 top-0 md:-top-1/7 lg:top-[170px] lg:left-[50px]"
+              className="absolute z-0 transform scale-173 pointer-events-none md:scale-171 top-0 md:-top-1/7 lg:top-[170px] lg:left-[50px]"
             />
             <div className="w-[172.2482px] relative h-[207px] md:w-[197.212px] md:h-[237px] lg:h-[493px] lg:w-[410.234px] mt-[57px] mb-12 lg:mb-0 lg:mt-24 lg:ml-[117.49px] md:mt-[52px] md:mb-16">
               <Image
@@ -85,7 +85,11 @@ export default function Home() {
                   <br className="lg:hidden" /> remarkable sound.
                 </p>
               </div>
-              <ButtonTwo background="bg-black" textColor="text-white" />
+              <ButtonTwo
+                route="/productDetail/zx9-speaker"
+                background="bg-black"
+                textColor="text-white"
+              />
             </div>
           </div>
           <div className="w-full h-80 relative overflow-hidden rounded-lg">
@@ -126,7 +130,11 @@ export default function Home() {
               <h1 className="text-[28px] font-bold leading-none tracking-[2px]">
                 ZX7 SPEAKER
               </h1>
-              <ButtonTwo background="bg-transparent" textColor="text-black" />
+              <ButtonTwo
+                route="/productDetail/zx9-speaker"
+                background="bg-transparent"
+                textColor="text-black"
+              />
             </div>
           </div>
           <div className="h-[424px] md:h-80 flex flex-col md:flex-row md:gap-[11px] gap-3">
@@ -170,6 +178,7 @@ export default function Home() {
                 YX1 EARPHONES
               </h1>
               <ButtonTwo
+                route="/productDetail/yx1-earphones"
                 background="bg-transparent"
                 position=""
                 textColor="text-black"
