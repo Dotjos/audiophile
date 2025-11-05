@@ -1,5 +1,16 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 const BackBtn = () => {
-  return <button className="text-Body text-black opacity-50">Go Back</button>;
+  const router = useRouter();
+  return (
+    <button
+      onClick={() => router.back()}
+      className="text-Body text-black hover:text-primary hover:opacity-100 opacity-50"
+    >
+      Go Back
+    </button>
+  );
 };
 
 export default BackBtn;

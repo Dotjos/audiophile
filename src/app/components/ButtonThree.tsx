@@ -1,15 +1,23 @@
 "use client";
+import Link from "next/link";
 
-interface ButtonThreeProps {}
+interface ButtonThreeInterface {
+  onClick?: () => void;
+  route: string;
+}
 
-const ButtonThree = () => {
+const ButtonThree = ({ route = "/", onClick }: ButtonThreeInterface) => {
   return (
-    <button className="in inline-flex items-center gap-[13.322px]">
-      <span className="uppercase text-[13px] leading-none  tracking-[1px] opacity-50 font-bold">
+    <Link
+      href={`/category/${route}`}
+      onClick={onClick}
+      className="inline-flex items-center gap-[13.322px]"
+    >
+      <span className="uppercase hover:text-primary hover:opacity-100 text-[13px] leading-none  tracking-[1px] opacity-50 font-bold">
         Shop
       </span>
-      <span className="t text-primary">&gt;</span>
-    </button>
+      <span className="text-primary">&gt;</span>
+    </Link>
   );
 };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -16,10 +17,10 @@ const Footer = () => {
         />
 
         <ul className="text-[13px] text-center font-bold leading-[25px] tracking-[2px] flex flex-col md:flex-row gap-2 md:gap-[34px]">
-          <li>HOME</li>
-          <li>HEADPHONES</li>
-          <li>SPEAKERS</li>
-          <li>EARPHONES</li>
+          <Link href="/">HOME</Link>
+          <Link href="/category/headphones">HEADPHONES</Link>
+          <Link href="/category/speakers">SPEAKERS</Link>
+          <Link href="/category/earphones">EARPHONES</Link>
         </ul>
       </div>
 

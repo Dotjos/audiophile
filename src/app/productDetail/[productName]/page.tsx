@@ -5,6 +5,8 @@ import AddToCartBtn from "@/app/components/AddToCartBtn";
 import { QuantitySelector } from "@/app/components/QuantitySelector";
 import { ImageGallery } from "@/app/components/ImageGallery";
 import ButtonOne from "@/app/components/ButtonOne";
+import { useStore } from "@/app/store/useStore";
+import ProductActions from "@/app/components/ProductActions";
 
 interface ProductDetailProps {
   params: Promise<{ productName: string }>;
@@ -15,9 +17,10 @@ export default async function ProductDetailPage({
 }: ProductDetailProps) {
   const { productName } = await params;
   const productDetail = await getProductBySlug(productName);
+
   return (
     <>
-      <div className="bg-black h-[89px]"></div>
+      <div className="bg-black h-[89px] lg:h-[97px]"></div>
       <div className="bg-grayLighter px-3 md:px-[38px] lg:px-[165px] pt-2 md:pt-[33px] lg:pt-[79px]">
         <BackBtn />
         <section className="mt-3 lg:mt-14 md:flex md:items-center md:gap-[69.5px] lg:gap-[125px]">
@@ -59,10 +62,7 @@ export default async function ProductDetailPage({
               ${productDetail.price}
             </p>
 
-            <div className="flex gap-2 ">
-              <QuantitySelector />
-              <AddToCartBtn />
-            </div>
+            <ProductActions product={productDetail} />
           </div>
         </section>
         <section className="my-[88px] md:my-[120px] lg:my-40 flex flex-col lg:flex-row md:gap-[120px] gap-[113px] lg:gap-[125px]">
@@ -142,7 +142,7 @@ export default async function ProductDetailPage({
                   <h1 className="text-[24px] uppercase font-bold leading-none tracking-[1.714px]">
                     {item.name}
                   </h1>
-                  <ButtonOne />
+                  <ButtonOne route={item.slug} />
                 </div>
               );
             })}

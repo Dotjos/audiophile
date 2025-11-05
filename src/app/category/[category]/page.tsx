@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { getProductsByCategory } from "../../../../utils";
 import ButtonOne from "@/app/components/ButtonOne";
-import NavComp from "@/app/components/NavComp";
 import ManComp from "@/app/components/ManComp";
 import NavSection from "@/app/components/NavSection";
 
@@ -58,13 +57,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       NEW PRODUCT
                     </h1>
                   )}
-                  <h1 className="font-bold mb-3 md:mb-4 lg:text-[40px] w-1/2 leading-none text-[28px] uppercase">
+                  <h1 className="font-bold mb-3 md:mb-4 lg:text-[40px] md:w-1/2 leading-none text-[28px] uppercase">
                     {product.name}
                   </h1>
                   <p className="text-Body mb-3 lg:mb-4 opacity-50">
                     {product.description}
                   </p>
-                  <ButtonOne />
+                  <ButtonOne route={`/productDetail/${product.slug}`} />
                 </div>
               </div>
             );
