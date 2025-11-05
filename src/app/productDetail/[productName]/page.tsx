@@ -1,11 +1,8 @@
 import BackBtn from "@/app/components/BackBtn";
 import { getProductBySlug } from "../../../../utils";
 import Image from "next/image";
-import AddToCartBtn from "@/app/components/AddToCartBtn";
-import { QuantitySelector } from "@/app/components/QuantitySelector";
 import { ImageGallery } from "@/app/components/ImageGallery";
 import ButtonOne from "@/app/components/ButtonOne";
-import { useStore } from "@/app/store/useStore";
 import ProductActions from "@/app/components/ProductActions";
 
 interface ProductDetailProps {
@@ -16,7 +13,7 @@ export default async function ProductDetailPage({
   params,
 }: ProductDetailProps) {
   const { productName } = await params;
-  const productDetail = await getProductBySlug(productName);
+  const productDetail = getProductBySlug(productName);
 
   return (
     <>
