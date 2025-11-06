@@ -19,11 +19,11 @@ export default function LayoutClient({
   } = useStore();
 
   return (
-    <>
+    <div className="max-w-[1440px] mx-auto relative w-full">
       {/* Background Overlay */}
       {(menuActive || cartActive || successFulCheckOut) && (
         <div
-          className={`fixed inset-0 bg-black/40 ${successFulCheckOut ? "z-80" : "z-40"}  transition-opacity duration-300`}
+          className={`absolute inset-0 bg-black/40 ${successFulCheckOut ? "z-80" : "z-40"}   transition-opacity duration-300`}
           onClick={() => {
             closeMenu();
             closeCart();
@@ -38,6 +38,6 @@ export default function LayoutClient({
       {/* success */}
       {successFulCheckOut && <Success />}
       {children}
-    </>
+    </div>
   );
 }

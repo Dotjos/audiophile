@@ -21,19 +21,20 @@ const Cart = () => {
   return (
     <div
       className="
-  bg-white 
-  w-[327px] md:w-[377px]
-  px-7 py-8
-  rounded-lg 
-  fixed 
-  top-[114px] lg:top-[129px]
-  left-1/2 -translate-x-1/2 
-  md:left-auto md:right-10 md:translate-x-0
-  lg:right-[165px]
-  z-50
-  flex flex-col  justify-between
-  shadow-lg
-"
+    bg-white
+    w-[90%] sm:w-[85%] md:w-[377px] lg:w-[540px]
+    mx-auto
+    px-6 py-7
+    rounded-lg
+    absolute
+    left-1/2 -translate-x-1/2
+    top-[114px] lg:top-[129px]
+    md:left-auto md:right-10 md:translate-x-0
+    lg:right-[165px]
+    z-50
+    flex flex-col justify-between
+    shadow-lg
+  "
     >
       <div className="flex justify-between">
         <h1 className="font-bold text-[18px] uppercase">

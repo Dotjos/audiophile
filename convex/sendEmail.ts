@@ -1,63 +1,3 @@
-// "use node";
-// import { action } from "./_generated/server";
-// import nodemailer from "nodemailer";
-
-// interface User {
-//   name: string;
-//   email: string;
-// }
-
-// interface CartItem {
-//   name: string;
-//   quantity: number;
-//   price: number;
-// }
-
-// export const sendCartEmail = action(
-//   async (ctx, args: { user: User; cart: CartItem[] }) => {
-//     const { user, cart } = args;
-
-//     const SMTP_HOST = process.env.SMTP_HOST!;
-//     const SMTP_PORT = Number(process.env.SMTP_PORT!);
-//     const SMTP_USER = process.env.SMTP_USER!;
-//     const SMTP_PASS = process.env.SMTP_PASS!;
-
-//     const transporter = nodemailer.createTransport({
-//       host: SMTP_HOST,
-//       port: SMTP_PORT,
-//       secure: false,
-//       auth: {
-//         user: SMTP_USER,
-//         pass: SMTP_PASS,
-//       },
-//     });
-
-//     const htmlBody = `
-//     <h2>🛍️ New Order Received</h2>
-//     <p><b>Name:</b> ${user.name}</p>
-//     <p><b>Email:</b> ${user.email}</p>
-//     <h3>Cart Items:</h3>
-//     <ul>
-//       ${cart
-//         .map(
-//           (item: any) =>
-//             `<li>${item.quantity} × ${item.name} - $${item.price}</li>`
-//         )
-//         .join("")}
-//     </ul>
-//   `;
-
-//     await transporter.sendMail({
-//       from: `"Audiophile Store" <${SMTP_USER}>`,
-//       to: user.email, // or your own email for testing
-//       subject: "Order Confirmation",
-//       html: htmlBody,
-//     });
-
-//     return { success: true };
-//   }
-// );
-
 "use node";
 import { action } from "./_generated/server";
 import nodemailer from "nodemailer";
@@ -101,6 +41,15 @@ export const sendCartEmail = action(
     const vat = Math.round(subtotal * 0.2); // 20% VAT for realism
     const total = subtotal + shipping + vat;
 
+    const orderDate = new Date().toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
     // Build formatted HTML
     const htmlBody = `
       <div style="font-family: Arial, sans-serif; background-color:#f9f9f9; padding:30px;">
@@ -113,6 +62,8 @@ export const sendCartEmail = action(
           <div style="padding:30px;">
             <p style="font-size:16px;">Hi <b>${user.name}</b>,</p>
             <p>Thank you for shopping with <b>Audiophile</b>! Your order has been successfully placed. Below is a summary of your purchase:</p>
+            <p style="color:#fff; margin:4px 0 0; font-size:14px;">Order Date: ${orderDate}</p>
+
 
             <h3 style="margin-top:24px;">🛍️ Order Summary</h3>
             <table style="width:100%; border-collapse:collapse; margin-top:10px;">

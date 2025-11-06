@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className="relative bg-grayLighter">
+      <body className="relative bg-grayLighter max-w-[1440px] mx-auto w-full">
         <ConvexClientProvider>
           <LayoutClient>
             <Navbar />
