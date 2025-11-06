@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackBtn from "../components/BackBtn";
 import { FormInput } from "../components/InputComponent";
 import { RadioOption } from "../components/RadioOption";
@@ -12,6 +12,7 @@ import {
 } from "../../../utils";
 import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 type PaymentMethod = "emoney" | "cash";
 
@@ -28,6 +29,19 @@ interface FormData {
 }
 
 const CheckoutPage = () => {
+  const router = useRouter();
+  const { getGrandTotal, getCartItems, toggleSuccessfulCheckOut } = useStore();
+  const cartTotal = getGrandTotal();
+  const cartItems = getCartItems();
+  const sendCartEmail = useAction(api.sendEmail.sendCartEmail);
+
+  // Redirect if cart is empty
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      router.push("/");
+    }
+  }, [cartItems.length, router]);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -43,11 +57,6 @@ const CheckoutPage = () => {
   const [formErrors, setFormErrors] = useState<
     Partial<Record<keyof FormData, string>>
   >({});
-
-  const { getGrandTotal, getCartItems, toggleSuccessfulCheckOut } = useStore();
-  const cartTotal = getGrandTotal();
-  const cartItems = getCartItems();
-  const sendCartEmail = useAction(api.sendEmail.sendCartEmail);
 
   const shipping = 50;
   const VAT = calculateVAT(cartTotal);
@@ -102,6 +111,20 @@ const CheckoutPage = () => {
     });
     toggleSuccessfulCheckOut();
   };
+
+  // Don't render if cart is empty (while redirecting)
+  if (cartItems.length === 0) {
+    return (
+      <div>
+        <div className="bg-black lg:h-[97px] h-[89px]" />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <h1 className="text-2xl font-bold text-gray-400">
+            Redirecting to home...
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

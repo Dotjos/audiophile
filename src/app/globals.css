@@ -38,7 +38,6 @@
   --text-SubTitle--letter-spacing:1px;
   --text-Body:15px;
   --text-Body--line-height:25px;
-
   --spacing-1:8px;
   --spacing-2:16px;
   --spacing-3:24px;
@@ -47,6 +46,3 @@
   --spacing-6:48px;
 }
 
-body{
-  max-width: 1440px;  
-}
