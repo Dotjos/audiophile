@@ -4,10 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { useStore } from "../store/useStore";
 import { getShortProductName } from "../../../utils";
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 const Success = () => {
-  const { getCartItems, clearCart, getGrandTotal, resetCheckoutSuccess } =
-    useStore();
+  const {
+    getCartItems,
+    getGrandTotal,
+    resetCheckoutSuccess,
+    orderId,
+    clearOrderId,
+  } = useStore();
+
+  const order = useQuery(
+    api.order.getOrderByOrderId,
+    orderId ? { orderId } : "skip"
+  );
 
   const cartItems = getCartItems();
   return (
@@ -72,7 +84,7 @@ const Success = () => {
         href="/"
         onClick={() => {
           resetCheckoutSuccess();
-          clearCart();
+          clearOrderId();
         }}
         className="text-white text-center bg-primary uppercase py-[15px] w-full"
       >

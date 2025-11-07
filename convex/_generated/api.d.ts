@@ -8,6 +8,8 @@
  * @module
  */
 
+import type * as order from "../order.js";
+import type * as scheme from "../scheme.js";
 import type * as sendEmail from "../sendEmail.js";
 import type * as tasks from "../tasks.js";
 
@@ -26,6 +28,8 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  order: typeof order;
+  scheme: typeof scheme;
   sendEmail: typeof sendEmail;
   tasks: typeof tasks;
 }>;

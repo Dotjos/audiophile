@@ -10,7 +10,7 @@ import {
   calculateVAT,
   getShortProductName,
 } from "../../../utils";
-import { useAction } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 
@@ -30,10 +30,18 @@ interface FormData {
 
 const CheckoutPage = () => {
   const router = useRouter();
-  const { getGrandTotal, getCartItems, toggleSuccessfulCheckOut } = useStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    getGrandTotal,
+    getCartItems,
+    toggleSuccessfulCheckOut,
+    clearCart,
+    setOrderId,
+  } = useStore();
   const cartTotal = getGrandTotal();
   const cartItems = getCartItems();
   const sendCartEmail = useAction(api.sendEmail.sendCartEmail);
+  const createOrder = useMutation(api.order.createOrder);
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -99,17 +107,74 @@ const CheckoutPage = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const simplifiedCart = cartItems.map((item) => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-    }));
+    setIsSubmitting(true);
 
-    await sendCartEmail({
-      user: { name: formData.name, email: formData.email },
-      cart: simplifiedCart,
-    });
-    toggleSuccessfulCheckOut();
+    try {
+      // Prepare order items
+      const orderItems = cartItems.map((item) => ({
+        id: item.id,
+        name: item.name,
+        slug: item.slug,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image.mobile,
+      }));
+
+      // Create order in Convex
+      const orderResult = await createOrder({
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        shippingAddress: formData.address,
+        shippingCity: formData.city,
+        shippingCountry: formData.country,
+        paymentMethod: formData.paymentMethod,
+        eMoneyNumber:
+          formData.paymentMethod === "emoney"
+            ? formData.eMoneyNumber
+            : undefined,
+        items: orderItems,
+        subtotal: cartTotal,
+        shipping: shipping,
+        vat: VAT,
+        grandTotal: grandTotal,
+      });
+
+      setOrderId(orderResult.orderId);
+
+      // Send confirmation email
+      await sendCartEmail({
+        user: {
+          name: formData.name,
+          email: formData.email,
+        },
+        orderId: orderResult.orderId,
+        cart: orderItems,
+        shippingDetails: {
+          address: formData.address,
+          city: formData.city,
+          country: formData.country,
+        },
+        totals: {
+          subtotal: cartTotal,
+          shipping: shipping,
+          vat: VAT,
+          grandTotal: grandTotal,
+        },
+      });
+
+      // Success! Toggle confirmation or redirect
+      toggleSuccessfulCheckOut();
+
+      // Optional: Redirect to order confirmation page
+      // router.push(`/order-confirmation?orderId=${orderResult.orderId}`);
+    } catch (error) {
+      console.error("Order creation failed:", error);
+      alert("There was an error processing your order. Please try again.");
+    } finally {
+      clearCart();
+      setIsSubmitting(false);
+    }
   };
 
   // Don't render if cart is empty (while redirecting)
@@ -345,9 +410,10 @@ const CheckoutPage = () => {
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="bg-primary w-full py-[15px] mt-4 text-white font-bold text-[13px] tracking-[1px]"
             >
-              CONTINUE & PAY
+              {isSubmitting ? "PROCESSING..." : "CONTINUE & PAY"}
             </button>
           </div>
         </form>
