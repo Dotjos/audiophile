@@ -165,9 +165,6 @@ const CheckoutPage = () => {
 
       // Success! Toggle confirmation or redirect
       toggleSuccessfulCheckOut();
-
-      // Optional: Redirect to order confirmation page
-      // router.push(`/order-confirmation?orderId=${orderResult.orderId}`);
     } catch (error) {
       console.error("Order creation failed:", error);
       alert("There was an error processing your order. Please try again.");
