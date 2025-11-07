@@ -37,6 +37,7 @@ const CheckoutPage = () => {
     toggleSuccessfulCheckOut,
     clearCart,
     setOrderId,
+    successFulCheckOut,
   } = useStore();
   const cartTotal = getGrandTotal();
   const cartItems = getCartItems();
@@ -44,6 +45,12 @@ const CheckoutPage = () => {
   const createOrder = useMutation(api.order.createOrder);
 
   // Redirect if cart is empty
+  useEffect(() => {
+    // Only redirect to home if there's no cart and no successful checkout
+    if (cartItems.length === 0 && !successFulCheckOut) {
+      router.push("/");
+    }
+  }, [cartItems.length, successFulCheckOut, router]);
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -168,6 +175,20 @@ const CheckoutPage = () => {
       setIsSubmitting(false);
     }
   };
+
+  // Don't render if cart is empty (while redirecting)
+  if (cartItems.length === 0) {
+    return (
+      <div>
+        <div className="bg-black lg:h-[97px] h-[89px]" />{" "}
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <h1 className="text-2xl font-bold text-gray-400">
+            Redirecting to home...{" "}
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
