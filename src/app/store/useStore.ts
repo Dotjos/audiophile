@@ -10,6 +10,9 @@ interface StoreState {
   cart: Record<string, CartItem>;
   menuActive: boolean;
   successFulCheckOut: boolean;
+  orderId: string | null; // ✅ New
+  setOrderId: (id: string) => void; // ✅ New
+  clearOrderId: () => void; // ✅ New
   toggleMenu: () => void;
   toggleCart: () => void;
   closeMenu: () => void;
@@ -35,6 +38,9 @@ export const useStore = create<StoreState>()(
       cart: {},
       menuActive: false,
       successFulCheckOut: false,
+      orderId: null,
+      setOrderId: (id) => set({ orderId: id }), // ✅ new
+      clearOrderId: () => set({ orderId: null }), // ✅ new
 
       toggleMenu: () =>
         set((state) => ({
