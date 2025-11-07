@@ -8,20 +8,19 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
 const Success = () => {
-  const {
-    getCartItems,
-    getGrandTotal,
-    resetCheckoutSuccess,
-    orderId,
-    clearOrderId,
-  } = useStore();
+  const { resetCheckoutSuccess, orderId, clearOrderId } = useStore();
 
   const order = useQuery(
     api.order.getOrderByOrderId,
     orderId ? { orderId } : "skip"
   );
 
-  const cartItems = getCartItems();
+  if (!order) return null;
+
+  const { items, grandTotal } = order;
+  console.log(order);
+
+  // const cartItems = getCartItems();
   return (
     <div className="absolute rounded-lg p-4 w-[327px] md:w-[327px] lg:w-[540px] flex flex-col bg-white z-90 left-1/2 top-[114px] md:top-28 lg:top-[212px] -translate-x-1/2 ">
       <Image
@@ -40,19 +39,15 @@ const Success = () => {
       <div className="my-3 rounded-lg bg-grayLight flex flex-col justify-between overflow-hidden">
         {/* <div>{cartItems.map()}</div> */}
         <div
-          className={`mt-3 mx-3 ${cartItems.length > 1 && "border-dark/10 border-b"} mb-[12px] `}
+          className={`mt-3 mx-3 ${items.length > 1 && "border-dark/10 border-b"} mb-[12px] `}
         >
-          {cartItems.map((item) => (
+          {items.map((item) => (
             <div key={item.id} className="flex justify-center">
               <div
                 key={item.id}
                 className="relative rounded-lg overflow-hidden h-16 w-16"
               >
-                <Image
-                  fill
-                  src={item.image.mobile}
-                  alt={`${item.slug}-cart-image`}
-                />
+                <Image fill src={item.image} alt={`${item.slug}-cart-image`} />
               </div>
               <div className="flex justify-center pl-2 flex-col">
                 <span className="font-bold text-Body">
@@ -68,15 +63,15 @@ const Success = () => {
             </div>
           ))}
         </div>
-        {cartItems.length > 1 && (
+        {items.length > 1 && (
           <div className="text-center text-[12px] text-dark/50  mb-[25px]">
-            and ({cartItems.length - 1}) other items(s)
+            and ({items.length - 1}) other items(s)
           </div>
         )}
         <div className="bg-dark flex flex-col gap-1 py-[15px] px-3">
           <h1 className="text-Body font-normal text-white/50">GRAND TOTAL</h1>
           <h1 className="text-white text-[18px] font-bold leading-none uppercase">
-            ${getGrandTotal().toLocaleString()}
+            ${grandTotal?.toLocaleString()}
           </h1>
         </div>
       </div>
