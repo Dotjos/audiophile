@@ -54,7 +54,7 @@ export const sendCartEmail = action(
       },
     });
 
-    const orderDate = new Date().toLocaleString("en-US", {
+    const orderDate = new Date().toLocaleString("en-NG", {
       weekday: "long",
       year: "numeric",
       month: "long",
