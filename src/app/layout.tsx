@@ -5,6 +5,8 @@ import { ConvexClientProvider } from "./ConvexClientProvider";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import LayoutClient from "./LayoutClient";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Audiophile e-commerce app",
@@ -31,6 +33,7 @@ export default function RootLayout({
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <ToastContainer />
           </LayoutClient>
         </ConvexClientProvider>
       </body>
