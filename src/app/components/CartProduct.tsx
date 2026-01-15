@@ -36,7 +36,7 @@ const CartProduct = ({
       </div>
       <QuantitySelector
         quantity={quantity}
-        onQuantityChange={() => updateQuantity(id, quantity)}
+        onQuantityChange={(newQuantity) => updateQuantity(id, newQuantity)}
         size="small"
       />
     </div>

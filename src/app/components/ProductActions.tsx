@@ -5,23 +5,56 @@ import AddToCartBtn from "./AddToCartBtn";
 import { QuantitySelector } from "./QuantitySelector";
 import { useStore } from "../store/useStore";
 
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 interface ProductActionsProps {
   product: Product;
 }
 
 const ProductActions = ({ product }: ProductActionsProps) => {
-  const [quantity, setQuantity] = useState(1); // ✅ This is fine here!
-  const { addToCart } = useStore();
+  const { addToCart, cart, updateQuantity } = useStore();
+  const cartItem = cart[product.id];
+  const [quantity, setQuantity] = useState(1);
+
+  // Sync local quantity with cart quantity if item exists in cart
+  useEffect(() => {
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    }
+  }, [cartItem]);
+
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+    if (cartItem) {
+      updateQuantity(product.id, newQuantity);
+    }
+  };
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
-    setQuantity(1);
+    toast.success(`${product.name} added to cart!`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+    // We don't reset quantity to 1 anymore if it's in the cart, 
+    // it stays in sync with the cart.
+    if (!cartItem) {
+      setQuantity(1);
+    }
   };
 
   return (
     <div>
       <div className="flex gap-2 ">
-        <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} />
+        <QuantitySelector
+          quantity={quantity}
+          onQuantityChange={handleQuantityChange}
+        />
         <AddToCartBtn onClick={handleAddToCart} />
       </div>
     </div>
